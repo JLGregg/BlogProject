@@ -22,6 +22,10 @@ app.get("/view", (req, res) => {
     res.send("view");
 })
 
+app.get("/entry", (req, res) => {
+    res.render("entry.ejs");
+})
+
 app.post("/create", (req, res) => {
     // TODO: add correct code
     res.send("create");
