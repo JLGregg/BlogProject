@@ -5,16 +5,18 @@
 
     <a class="btn btn-primary" href="/entry" role="button">Create Post</a>
 
-    <% if (blogTitles.length > 0) { %>
-    <h2>Blog Titles:</h2>
-    <ul>
-        <% blogTitles.forEach(function(title) { %>
-        <li><%= title %></li>
-        <% }); %>
-    </ul>
-    <% } else { %>
-    <p>No blog posts yet.</p>
-    <% } %>
+    <div class="mt-5">
+        <% if (blogTitles.length > 0) { %>
+        <h2>Blogs</h2>
+        <ul>
+            <% blogTitles.forEach(function(title) { %>
+            <li><%= title %></li>
+            <% }); %>
+        </ul>
+        <% } else { %>
+        <p>No blog posts yet.</p>
+        <% } %>
+    </div>
 </div>
 
 <%- include("partials/footer.ejs") %>
