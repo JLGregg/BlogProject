@@ -1,4 +1,20 @@
 <%- include("partials/header.ejs") %>
-Home Page
-<%- include("partials/footer.ejs") %>
 
+<div class="p-5">
+    <h1>Welcome to the Blog Page</h1>
+
+    <a class="btn btn-primary" href="/entry" role="button">Create Post</a>
+
+    <% if (blogTitles.length > 0) { %>
+    <h2>Blog Titles:</h2>
+    <ul>
+        <% blogTitles.forEach(function(title) { %>
+        <li><%= title %></li>
+        <% }); %>
+    </ul>
+    <% } else { %>
+    <p>No blog posts yet.</p>
+    <% } %>
+</div>
+
+<%- include("partials/footer.ejs") %>

@@ -3,10 +3,14 @@ import express from 'express';
 const app = express();
 const port = 3000;
 
+let blogTitles = [];
+
 app.use(express.static("public"));
 
+app.use(express.urlencoded({ extended:true }));
+
 app.get("/", (req, res) => {
-    res.render("index.ejs");
+    res.render("index.ejs", { blogTitles: blogTitles});
 })
 
 app.get("/contact", (req, res) => {
@@ -27,8 +31,11 @@ app.get("/entry", (req, res) => {
 })
 
 app.post("/create", (req, res) => {
-    // TODO: add correct code
-    res.send("create");
+    const blogTitle = req.body.blogTitle;
+
+    blogTitles.push(blogTitle);
+
+    res.redirect("/");
 })
 
 app.patch("/edit", (req, res) => {

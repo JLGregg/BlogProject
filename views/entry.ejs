@@ -1,26 +1,28 @@
 <%- include("partials/header.ejs") %>
 <div class="w-50 p-5">
-    <div class="mb-3">
-        <label for="blogtitle" class="form-label"
-            >Blog Title</label
-        >
-        <input
-            type="title"
-            class="form-control"
-            id="blogtitle"
-        />
-    </div>
-    <div class="mb-3">
-        <label for="blogpost" class="form-label"
-            >Blog Post</label
-        >
-        <textarea
-            class="form-control"
-            id="blogpost"
-            rows="3"
-        ></textarea>
-    </div>
+    <form action="/create" method="post">
+        <div class="mb-3">
+            <label for="blogTitle" class="form-label">Blog Title</label>
+            <input
+                type="title"
+                class="form-control"
+                id="blogTitle"
+                name="blogTitle"
+                required
+            />
+        </div>
+        <div class="mb-3">
+            <label for="blogPost" class="form-label">Blog Post</label>
+            <textarea
+                class="form-control"
+                id="blogPost"
+                rows="3"
+                name="blogPost"
+                required
+            ></textarea>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Submit" />
+    </form>
 </div>
-
 
 <%- include("partials/footer.ejs") %>
