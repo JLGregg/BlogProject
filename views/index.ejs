@@ -11,8 +11,9 @@
         <% if (blogTitles.length > 0) { %>
         <h2>Blogs</h2>
         <ul>
-            <% blogTitles.forEach(function(title) { %>
-            <li><%= title %></li>
+            <% blogTitles.forEach(function(post) { %>
+                <!-- Creating link  to each post by ID -->
+            <li><a href="/viewPost/<%= post.id %>"><%= post.title %></a></li>
             <% }); %>
         </ul>
         <% } else { %>
