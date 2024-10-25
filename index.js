@@ -25,6 +25,7 @@ app.get("/about", (req, res) => {
     res.render("about.ejs");
 });
 
+// Get Viewpost page by id
 app.get("/viewPost/:id", (req, res) => {
     const postId = req.params.id;
     const post = blogTitles.find(p => p.id === postId);
