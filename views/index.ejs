@@ -3,8 +3,10 @@
 <div class="p-5">
     <h1>Welcome to the Blog Page</h1>
 
-    <a class="btn btn-primary" href="/entry" role="button">Create Post</a>
+    <!-- Button to submit form to /submit -->
+    <a class="btn btn-primary" href="/submit" role="button">Create Post</a>
 
+    <!-- If blogs have been posted, loop through blogs -->
     <div class="mt-5">
         <% if (blogTitles.length > 0) { %>
         <h2>Blogs</h2>

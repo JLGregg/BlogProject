@@ -1,40 +1,53 @@
 import express from 'express';
+import { v4 as uuidv4 } from 'uuid'; // To generate blog is
 
 const app = express();
 const port = 3000;
 
 let blogTitles = [];
 
+// Middleware
 app.use(express.static("public"));
-
 app.use(express.urlencoded({ extended:true }));
 
+// Get home page
 app.get("/", (req, res) => {
     res.render("index.ejs", { blogTitles: blogTitles});
 })
 
+// Get contact page
 app.get("/contact", (req, res) => {
     res.render("contact.ejs");
 })
 
+// Get about page
 app.get("/about", (req, res) => {
     res.render("about.ejs");
 })
 
-app.get("/view", (req, res) => {
+app.get("/viewPost", (req, res) => {
     // TODO: add correct code
     res.send("view");
 })
 
-app.get("/entry", (req, res) => {
+// Get page to fill out form
+app.get("/submit", (req, res) => {
     res.render("entry.ejs");
 })
 
-app.post("/create", (req, res) => {
-    const blogTitle = req.body.blogTitle;
+// Post form to /submit
+app.post("/submit", (req, res) => {
+    // Store id, title, and content
+    const blogPost = {
+        id: uuidv4(),
+        title: req.body.blogTitle,
+        content: req.body.blogPost
+    };
 
+    // Push blogTitle to blogTitles list
     blogTitles.push(blogTitle);
 
+    // Redirect back to home page
     res.redirect("/");
 })
 
