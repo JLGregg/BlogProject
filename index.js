@@ -1,5 +1,6 @@
 import express from 'express';
 import { v4 as uuidv4 } from 'uuid'; // To generate blog is
+import methodOverride from 'method-override'; 
 
 const app = express();
 const port = 3000;
@@ -9,6 +10,7 @@ let blogTitles = [];
 // Middleware
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended:true }));
+app.use(methodOverride('_method'));
 
 // Get home page
 app.get("/", (req, res) => {
@@ -39,7 +41,7 @@ app.get("/viewPost/:id", (req, res) => {
 
 // Get page to fill out form
 app.get("/submit", (req, res) => {
-    res.render("entry.ejs");
+    res.render("submit.ejs");
 });
 
 // Post form to /submit
@@ -58,9 +60,37 @@ app.post("/submit", (req, res) => {
     res.redirect("/");
 });
 
-app.patch("/edit", (req, res) => {
-    // TODO: add correct code
-    res.send("edit");
+// Get edit page
+app.get("/edit/:id", async (req, res) => {
+    // Storing post id
+    const postId = req.params.id;
+    const post = blogTitles.find(p => p.id === postId);
+    
+    if (post) {
+        res.render("edit.ejs", {post});
+    } else {
+        res.status(404).send("Post not found");
+    }
+    
+});
+
+// Using Put to edit post
+app.put("/update/:id", async (req, res) => {
+    const postId = req.params.id;
+    const postIndex = blogTitles.findIndex(p => p.id === postId);
+    
+    // If post is in array
+    if (postIndex !== -1) {
+        blogTitles[postIndex] = {
+            // Using spread operator to create new object with all properties of existing post
+            ...blogTitles[postIndex],
+            title: req.body.blogTitle,
+            content: req.body.blogPost,
+        };
+        res.redirect(`/viewPost/${postId}`);
+    } else {
+        res.status(404).send("Post not found");
+    }
 });
 
 app.delete("/delete", (req, res) => {
