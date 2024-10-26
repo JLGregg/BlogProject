@@ -93,9 +93,18 @@ app.put("/update/:id", async (req, res) => {
     }
 });
 
-app.delete("/delete", (req, res) => {
-    // TODO: add correct code
-    res.send("delete");
+// Delete post
+app.delete("/viewPost/:id", (req, res) => {
+    const postId = req.params.id;
+    const postIndex = blogTitles.findIndex(p => p.id === postId);
+
+    if (postIndex !== -1) {
+        // Removing post
+        blogTitles.splice(postIndex, 1);
+        res.redirect("/");
+    } else {
+        res.status(404).send("Post not found");
+    }
 });
 
 app.listen(port, () => {
