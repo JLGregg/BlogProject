@@ -1,0 +1,30 @@
+<%- include("partials/header.ejs") %>
+<div class="w-50 p-5">
+    <form action="/update/<%= post.id %>?_method=PUT" method="post">
+        <div class="mb-3">
+            <label for="blogTitle" class="form-label">Blog Title</label>
+            <input
+                type="text"
+                class="form-control"
+                id="blogTitle"
+                name="blogTitle"
+                value="<%= post.title %>"
+                maxlength="100"
+                required
+            />
+        </div>
+        <div class="mb-3">
+            <label for="blogPost" class="form-label">Blog Post</label>
+            <textarea
+                class="form-control"
+                id="blogPost"
+                rows="3"
+                name="blogPost"
+                required
+            ><%= post.content %></textarea>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Update Post" />
+    </form>
+</div>
+
+<%- include("partials/footer.ejs") %>
