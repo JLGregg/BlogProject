@@ -1,6 +1,6 @@
-import express from 'express';
-import { v4 as uuidv4 } from 'uuid'; // To generate blog is
-import methodOverride from 'method-override'; 
+import express from "express";
+import { v4 as uuidv4 } from "uuid"; // To generate blog is
+import methodOverride from "method-override";
 
 const app = express();
 const port = 3000;
@@ -9,12 +9,12 @@ let blogTitles = [];
 
 // Middleware
 app.use(express.static("public"));
-app.use(express.urlencoded({ extended:true }));
-app.use(methodOverride('_method'));
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 // Get home page
 app.get("/", (req, res) => {
-    res.render("index.ejs", { blogTitles: blogTitles});
+    res.render("index.ejs", { blogTitles: blogTitles });
 });
 
 // Get contact page
@@ -30,10 +30,10 @@ app.get("/about", (req, res) => {
 // Get Viewpost page by id
 app.get("/viewPost/:id", (req, res) => {
     const postId = req.params.id;
-    const post = blogTitles.find(p => p.id === postId);
+    const post = blogTitles.find((p) => p.id === postId);
 
     if (post) {
-        res.render("viewPost.ejs", {post});
+        res.render("viewPost.ejs", { post });
     } else {
         res.status(404).send("Post not found");
     }
@@ -50,7 +50,7 @@ app.post("/submit", (req, res) => {
     const blogPost = {
         id: uuidv4(),
         title: req.body.blogTitle,
-        content: req.body.blogPost
+        content: req.body.blogPost,
     };
 
     // Push blogTitle to blogTitles list
@@ -64,21 +64,20 @@ app.post("/submit", (req, res) => {
 app.get("/edit/:id", async (req, res) => {
     // Storing post id
     const postId = req.params.id;
-    const post = blogTitles.find(p => p.id === postId);
-    
+    const post = blogTitles.find((p) => p.id === postId);
+
     if (post) {
-        res.render("edit.ejs", {post});
+        res.render("edit.ejs", { post });
     } else {
         res.status(404).send("Post not found");
     }
-    
 });
 
 // Using Put to edit post
 app.put("/update/:id", async (req, res) => {
     const postId = req.params.id;
-    const postIndex = blogTitles.findIndex(p => p.id === postId);
-    
+    const postIndex = blogTitles.findIndex((p) => p.id === postId);
+
     // If post is in array
     if (postIndex !== -1) {
         blogTitles[postIndex] = {
@@ -96,7 +95,7 @@ app.put("/update/:id", async (req, res) => {
 // Delete post
 app.delete("/viewPost/:id", (req, res) => {
     const postId = req.params.id;
-    const postIndex = blogTitles.findIndex(p => p.id === postId);
+    const postIndex = blogTitles.findIndex((p) => p.id === postId);
 
     if (postIndex !== -1) {
         // Removing post
